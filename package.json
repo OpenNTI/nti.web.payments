@@ -1,0 +1,43 @@
+{
+  "name": "@nti/web-payments",
+  "version": "0.0.0",
+  "description": "NextThought components for payments",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "test": "cmp-scripts test",
+    "start": "cmp-scripts start",
+    "prepack": "cmp-scripts build",
+    "build": "cmp-scripts build",
+    "clean": "cmp-scripts clean",
+    "check": "cmp-scripts check",
+    "release": "cmp-scripts release",
+    "install-snapshots": "cmp-scripts install-snapshots",
+    "fix": "cmp-scripts fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NextThought/nti.web.payments.git"
+  },
+  "keywords": [
+    "nextthought",
+    "payment"
+  ],
+  "author": "NextThought",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/NextThought/nti.web.payments/issues"
+  },
+  "homepage": "https://github.com/NextThought/nti.web.payments#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@nti/cmp-scripts": "^2.1.3",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
