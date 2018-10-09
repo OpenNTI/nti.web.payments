@@ -34,6 +34,10 @@
   },
   "homepage": "https://github.com/NextThought/nti.web.payments#readme",
   "dependencies": {
+    "@nti/util-logger": "^1.6.0",
+    "@nti/web-client": "^1.8.0",
+    "prop-types": "^15.6.2",
+    "react-stripe-elements": "^2.0.1"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.1.3",
