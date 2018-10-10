@@ -1,0 +1,43 @@
+@import '~@nti/style-common';
+
+.nti-credit-card-form {
+	.name-input-clearable {
+		width: 100%;
+		margin-bottom: 0.25rem;
+
+		.name-input {
+			width: 100%;
+
+			&:placeholder-shown ~ .reset {
+				display: none;
+			}
+		}
+	}
+
+	.card-input {
+		display: flex;
+
+		.card-number, .card-expiry, .card-cvc {
+			border-radius: 2px;
+			border: 1px solid $border-grey-light;
+			background-color: $panel-background;
+			padding: 0 0.625rem;
+		}
+
+		.card-number {
+			flex: 1 1 auto;
+		}
+
+		.card-expiry {
+			flex: 0 0 auto;
+			width: 95px;
+			margin-left: 0.25rem;
+		}
+
+		.card-cvc {
+			flex: 0 0 auto;
+			width: 95px;
+			margin-left: 0.25rem;
+		}
+	}
+}

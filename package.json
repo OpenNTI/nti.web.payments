@@ -35,9 +35,11 @@
   "homepage": "https://github.com/NextThought/nti.web.payments#readme",
   "dependencies": {
     "@nti/lib-locale": "^1.6.0",
+    "@nti/style-common": "^1.7.0",
     "@nti/util-logger": "^1.6.0",
     "@nti/web-client": "^1.8.0",
     "@nti/web-commons": "^0.47.0",
+    "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react-stripe-elements": "^2.0.1"
   },

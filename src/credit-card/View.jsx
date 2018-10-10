@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import {
 	injectStripe,
 	CardNumberElement,
@@ -17,6 +18,25 @@ const t = scoped('payment.credit-card', {
 		error: 'A name must be provided.'
 	}
 });
+
+const STRIPE_ELEMENT_PROPS = {
+	style: {
+		base: {
+			color: '#757474',
+			fontWeight: 400,
+			fontSize: 14,
+			fontFamily: '"OpenSans", sans-serif',
+			lineHeight: 2.2,
+			// font: 'normal 400 0.875rem/2.2 "OpenSans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif'
+			'::placeholder': {
+				color: '#b8b8b8',
+				fontStyle: 'italic',
+				fontSize: 14,
+				fontWeight: 400
+			}
+		}
+	}
+};
 
 function getErrors (name, number, expiry, cvc) {
 	if (!name.error && !number.error && !expiry.error && !cvc.error) { return null; }
@@ -40,6 +60,7 @@ function getValues (name, number, expiry, cvc) {
 
 class NTICreditCardForm extends React.Component {
 	static propTypes = {
+		className: PropTypes.string,
 		stripe: PropTypes.shape({
 			createToken: PropTypes.func
 		}),
@@ -112,26 +133,34 @@ class NTICreditCardForm extends React.Component {
 
 
 	render () {
-		const {stripe} = this.props;
+		const {stripe, className} = this.props;
 		const {name} = this.state;
 
 		return (
-			<div className="nti-credit-card-form">
+			<div className={cx('nti-credit-card-form', className)}>
 				{stripe && (
-					<Input.Text
-						className="name-input"
-						name="ccname"
-						autoComplete="cc-name"
-						reguired
-						value={name}
-						onChange={this.onNameChange}
-						placeholder={t('name.placeholder')}
-					/>
+					<Input.Clearable className="name-input-clearable">
+						<Input.Text
+							className="name-input"
+							name="ccname"
+							autoComplete="cc-name"
+							reguired
+							value={name}
+							onChange={this.onNameChange}
+							placeholder={t('name.placeholder')}
+						/>
+					</Input.Clearable>
 				)}
 				<div className="card-input">
-					<CardNumberElement onChange={this.onCardNumberChange} />
-					<CardExpiryElement onChange={this.onCardExpiryChange} />
-					<CardCVCElement onChange={this.onCardCVCChange} />
+					<div className="card-number">
+						<CardNumberElement onChange={this.onCardNumberChange} {...STRIPE_ELEMENT_PROPS} />
+					</div>
+					<div className="card-expiry">
+						<CardExpiryElement onChange={this.onCardExpiryChange} {...STRIPE_ELEMENT_PROPS} />
+					</div>
+					<div className="card-cvc">
+						<CardCVCElement onChange={this.onCardCVCChange} {...STRIPE_ELEMENT_PROPS} />
+					</div>
 				</div>
 			</div>
 		);
