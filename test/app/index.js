@@ -20,13 +20,34 @@ class Test extends React.Component {
 		});
 	}
 
+	onChange = (info) => {
+		this.creditCardInfo = info;
+	}
+
+
+	generateToken = async () => {
+		if (this.creditCardInfo) {
+			try {
+				const {token} = await this.creditCardInfo.createToken();
+
+				this.setState({token: token.id});
+			} catch (e) {
+				console.log('Failed to generate tokey: ', e);//eslint-disable-line
+			}
+		}
+	}
+
 	render () {
-		const {purchasable} = this.state;
+		const {purchasable, token} = this.state;
 
 		if (!purchasable) { return null; }
 
 		return (
-			<CreditCard purchasable={purchasable} />
+			<div>
+				<CreditCard purchasable={purchasable} onChange={this.onChange} />
+				<button onClick={this.generateToken}>Generate Token</button>
+				<span>{token || 'No Token'}</span>
+			</div>
 		);
 	}
 }
