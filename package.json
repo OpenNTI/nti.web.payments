@@ -33,6 +33,9 @@
     "url": "https://github.com/NextThought/nti.web.payments/issues"
   },
   "homepage": "https://github.com/NextThought/nti.web.payments#readme",
+  "publishConfig": {
+    "registry": "https://npm.nextthought.com"
+  },
   "dependencies": {
     "@nti/lib-locale": "^1.6.0",
     "@nti/style-common": "^1.7.0",
