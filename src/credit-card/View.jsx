@@ -58,6 +58,11 @@ function getValues (name, number, expiry, cvc) {
 	};
 }
 
+
+function getEmpty (name, number, expiry, cvc) {
+	return name.empty && number.empty && expiry.empty && cvc.empty;
+}
+
 class NTICreditCardForm extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
@@ -72,15 +77,14 @@ class NTICreditCardForm extends React.Component {
 	constructor (props) {
 		super(props);
 
-		this.name = {};
-		this.number = {};
-		this.expiry = {};
-		this.cvc = {};
+		this.name = {empty: true};
+		this.number = {empty: true};
+		this.expiry = {empty: true};
+		this.cvc = {empty: true};
 	}
 
 	onCardChange = () => {
 		const {onChange, stripe} = this.props;
-
 		const complete = this.name.complete && this.number.complete && this.expiry.complete && this.cvc.complete;
 		const errors = getErrors(this.name, this.number, this.expiry, this.cvc);
 		const values = getValues(this.name, this.number, this.expiry, this.cvc);
@@ -88,9 +92,11 @@ class NTICreditCardForm extends React.Component {
 		if (onChange) {
 			onChange({
 				complete,
-				brand: this.number.brand,
 				errors,
+				isValid: !errors,
+				empty: getEmpty(this.name, this.number, this.expiry, this.cvc),
 				values,
+				brand: this.number.brand,
 				createToken: async (extraValues) => {
 					if (!complete) { throw new Error('Missing Credit Card Information'); }
 					if (errors) { throw new Error((errors.name || errors.number || errors.expiry || errors.cvc).message); }
@@ -108,6 +114,7 @@ class NTICreditCardForm extends React.Component {
 
 		this.name = {
 			complete: !!name,
+			empty: !name,
 			error: name ? null : {message: t('name.error')},
 			value: name
 		};
