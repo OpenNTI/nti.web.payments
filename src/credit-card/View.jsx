@@ -93,7 +93,7 @@ class NTICreditCardForm extends React.Component {
 			onChange({
 				complete,
 				errors,
-				isValid: !errors,
+				isValid: !errors && complete,
 				empty: getEmpty(this.name, this.number, this.expiry, this.cvc),
 				values,
 				brand: this.number.brand,
