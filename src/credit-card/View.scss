@@ -27,17 +27,22 @@
 
 		.card-number {
 			flex: 1 1 auto;
+			min-width: 44%;
 		}
 
 		.card-expiry {
 			flex: 0 0 auto;
-			width: 95px;
+			max-width: 95px;
+			min-width: 78px;
+			width: 18%;
 			margin-left: 0.25rem;
 		}
 
 		.card-cvc {
 			flex: 0 0 auto;
-			width: 95px;
+			max-width: 95px;
+			min-width: 54px;
+			width: 18%;
 			margin-left: 0.25rem;
 		}
 	}
