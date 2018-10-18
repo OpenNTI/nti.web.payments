@@ -60,7 +60,14 @@ function getValues (name, number, expiry, cvc) {
 
 
 function getEmpty (name, number, expiry, cvc) {
-	return name.empty && number.empty && expiry.empty && cvc.empty;
+	if (!name.empty && !number.empty && !expiry.empty && !cvc.empty) { return null; }
+
+	return {
+		name: name.empty,
+		number: number.empty,
+		expiry: expiry.empty,
+		cvc: cvc.empty
+	};
 }
 
 class NTICreditCardForm extends React.Component {
