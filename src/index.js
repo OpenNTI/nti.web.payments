@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Elements} from 'react-stripe-elements';
 
 import StripeProvider from './StripeProvider';
@@ -10,8 +11,11 @@ const ELEMENT_PROPS = {
 	]
 };
 
-
-export const CreditCard = ({purchasable, onError, ...otherProps}) => {
+CreditCard.propTypes = {
+	purchasable: PropTypes.any,
+	onError: PropTypes.func,
+};
+export function CreditCard ({purchasable, onError, ...otherProps}) {
 	return (
 		<StripeProvider purchasable={purchasable} onError={onError}>
 			<Elements {...ELEMENT_PROPS} >
@@ -19,4 +23,4 @@ export const CreditCard = ({purchasable, onError, ...otherProps}) => {
 			</Elements>
 		</StripeProvider>
 	);
-};
+}
