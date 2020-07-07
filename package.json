@@ -11,12 +11,9 @@
   "scripts": {
     "test": "cmp-scripts test",
     "start": "cmp-scripts start",
-    "prepack": "cmp-scripts build",
-    "build": "cmp-scripts build",
     "clean": "cmp-scripts clean",
     "check": "cmp-scripts check",
     "release": "cmp-scripts release",
-    "install-snapshots": "cmp-scripts install-snapshots",
     "fix": "cmp-scripts fix"
   },
   "repository": {
@@ -37,11 +34,11 @@
     "registry": "https://npm.nextthought.com"
   },
   "dependencies": {
-    "@nti/lib-locale": "^1.6.0",
-    "@nti/style-common": "^1.7.0",
-    "@nti/util-logger": "^1.6.0",
-    "@nti/web-client": "^1.8.0",
-    "@nti/web-commons": "0.x.x",
+    "@nti/lib-locale": "NextThought/nti.lib.locale",
+    "@nti/style-common": "NextThought/nti.style.common",
+    "@nti/util-logger": "NextThought/nti.util.logger",
+    "@nti/web-client": "NextThought/nti.web.client",
+    "@nti/web-commons": "NextThought/nti.web.commons",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react-stripe-elements": "^2.0.1"
