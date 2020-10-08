@@ -20,7 +20,7 @@
 		.card-number, .card-expiry, .card-cvc {
 			border-radius: 2px;
 			border: 1px solid var(--border-grey)-light;
-			background-color: $panel-background;
+			background-color: var(--panel-background);
 			padding: 0 0.625rem;
 			min-height: 34px;
 		}
