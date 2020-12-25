@@ -38,7 +38,7 @@
     "@nti/util-logger": "NextThought/nti.util.logger",
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
-    "react-stripe-elements": "^2.0.1"
+    "react-stripe-elements": "^6.1.2"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.31.8"
