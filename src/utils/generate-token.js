@@ -8,7 +8,7 @@ const KNOWN_OPTIONS = [
 	'address_country'
 ];
 
-export default async function generateToken (stripe, data) {
+export async function generateToken (stripe, data) {
 	const options = KNOWN_OPTIONS.reduce((acc, option) => {
 		if (data[option] != null) {
 			acc[option] = data[option];

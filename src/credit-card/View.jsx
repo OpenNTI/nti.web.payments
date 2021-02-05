@@ -3,11 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {
-	injectStripe,
+	useStripe,
+	//useElements,
 	CardNumberElement,
 	CardExpiryElement,
 	CardCVCElement
-} from 'react-stripe-elements';
+} from '@stripe/react-stripe-js';
 import {Input} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -21,19 +22,21 @@ const t = scoped('payment.credit-card', {
 });
 
 const STRIPE_ELEMENT_PROPS = {
-	style: {
-		base: {
-			color: '#757474',
-			fontWeight: 400,
-			fontSize: 14,
-			fontFamily: '"OpenSans", sans-serif',
-			lineHeight: 2.2,
-			// font: 'normal 400 0.875rem/2.2 "OpenSans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif'
-			'::placeholder': {
-				color: '#b8b8b8',
-				fontStyle: 'italic',
+	options: {
+		style: {
+			base: {
+				color: '#757474',
+				fontWeight: 400,
 				fontSize: 14,
-				fontWeight: 400
+				fontFamily: '"OpenSans", sans-serif',
+				lineHeight: 2.2,
+				// font: 'normal 400 0.875rem/2.2 "OpenSans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif'
+				'::placeholder': {
+					color: '#b8b8b8',
+					fontStyle: 'italic',
+					fontSize: 14,
+					fontWeight: 400
+				}
 			}
 		}
 	}
@@ -182,4 +185,9 @@ class NTICreditCardForm extends React.Component {
 	}
 }
 
-export default injectStripe(NTICreditCardForm);
+export default (props) => {
+	// Get a reference to Stripe or Elements using hooks.
+	const stripe = useStripe();
+	// const elements = useElements();
+	return <NTICreditCardForm {...props} stripe={stripe} />;
+};
