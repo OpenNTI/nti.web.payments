@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {Elements} from 'react-stripe-elements';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
-import StripeProvider from './StripeProvider';
 import CreditCardCmp from './credit-card';
+import {getPublicKeyFromPurchasable} from './utils';
 
 const ELEMENT_PROPS = {
 	fonts: [
@@ -16,11 +17,20 @@ CreditCard.propTypes = {
 	onError: PropTypes.func,
 };
 export function CreditCard ({purchasable, onError, ...otherProps}) {
-	return (
-		<StripeProvider purchasable={purchasable} onError={onError}>
-			<Elements {...ELEMENT_PROPS} >
-				<CreditCardCmp {...otherProps} />
-			</Elements>
-		</StripeProvider>
+	const [stripe, setStripe] = useState(null);
+	useEffect(() => {
+		setStripe(!purchasable ? null :
+			loadStripe(getPublicKeyFromPurchasable(purchasable)
+				.catch(e => {
+					onError?.(e);
+					throw e;
+				})
+			));
+	}, [purchasable]);
+
+	return !stripe ? null : (
+		<Elements {...ELEMENT_PROPS} stripe={stripe} >
+			<CreditCardCmp {...otherProps} />
+		</Elements>
 	);
 }
