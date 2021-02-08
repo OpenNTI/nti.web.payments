@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js/pure';
 
-import CreditCardCmp from './credit-card';
+import CreditCardCmp from './CreditCard';
 import {getPublicKeyFromPurchasable} from './utils';
 
 const ELEMENT_PROPS = {
