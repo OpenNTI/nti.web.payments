@@ -20,12 +20,12 @@ export function CreditCard ({purchasable, onError, ...otherProps}) {
 	const [stripe, setStripe] = useState(null);
 	useEffect(() => {
 		setStripe(!purchasable ? null :
-			loadStripe(getPublicKeyFromPurchasable(purchasable)
-				.then(x => x, e => {
+			loadStripe(getPublicKeyFromPurchasable(purchasable))
+				.catch(e => {
 					onError?.(e);
 					throw e;
 				})
-			));
+		);
 	}, [purchasable]);
 
 	return !stripe ? null : (
