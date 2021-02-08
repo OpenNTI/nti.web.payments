@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+import {loadStripe} from '@stripe/stripe-js/pure';
 
 import CreditCardCmp from './credit-card';
 import {getPublicKeyFromPurchasable} from './utils';
@@ -21,7 +21,7 @@ export function CreditCard ({purchasable, onError, ...otherProps}) {
 	useEffect(() => {
 		setStripe(!purchasable ? null :
 			loadStripe(getPublicKeyFromPurchasable(purchasable)
-				.catch(e => {
+				.then(x => x, e => {
 					onError?.(e);
 					throw e;
 				})
