@@ -5,7 +5,7 @@ import {CreditCard} from '../index';
 const purchasable = {
 	getStripeConnectKey () {
 		return {
-			PublicKey: 'mock'
+			PublicKey: 'pk_test_TYooMQauvdEDq54NiTphI7jx'
 		};
 	}
 };
@@ -15,7 +15,7 @@ export default {
 };
 
 
-const generateToken = async (info) => (await info?.createToken())?.token.id;
+const generateToken = async (info) => await info?.createToken();
 
 const merge = (state, action) => ({ ...state, ...action });
 
@@ -36,7 +36,7 @@ export function GenerateToken () {
 		<>
 			<CreditCard purchasable={purchasable} onChange={onChange} />
 			<button onClick={generate}>Generate Token</button>
-			<span>{error?.message || token || 'No Token'}</span>
+			<pre>{error?.message || (token && JSON.stringify(token, null, 2)) || 'No Token'}</pre>
 		</>
 	);
 }

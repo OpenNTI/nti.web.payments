@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {
 	useStripe,
-	//useElements,
+	useElements,
 	CardNumberElement,
 	CardExpiryElement,
 	CardCvcElement
@@ -19,6 +19,9 @@ const t = scoped('payment.credit-card', {
 		error: 'A name must be provided.'
 	}
 });
+
+
+//#region styles
 
 const Framer = type => ({type: Type = type, className, ...props}) => ({className, children: <Type {...props}/>});
 const FrameType = type => props => ({type, ...props});
@@ -68,7 +71,7 @@ const Cvc = styled(Field).attrs(FrameType(CardCvcElement))`
 	width: 18%;
 	margin-left: 0.25rem;
 `;
-
+//#endregion
 
 const STRIPE_ELEMENT_PROPS = {
 	options: {
@@ -100,7 +103,7 @@ CreditCardForm.propTypes = {
 export default function CreditCardForm ({className, onChange}) {
 	// Get a reference to Stripe or Elements using hooks.
 	const stripe = useStripe();
-	// const elements = useElements();
+	const elements = useElements();
 	const [name, setName] = useState('');
 	const {current: data} = useRef({
 		name: {empty: true},
@@ -126,11 +129,11 @@ export default function CreditCardForm ({className, onChange}) {
 				if (!complete) { throw new Error('Missing Credit Card Information'); }
 				if (errors) { throw new Error((errors.name || errors.number || errors.expiry || errors.cvc).message); }
 
-				return generateToken(stripe, {...extraValues, name: values.name});
+				return generateToken(stripe, elements, {...extraValues, name: values.name});
 			}
 		});
 
-	}, [onChange, stripe]);
+	}, [onChange, elements, stripe]);
 
 	const onNameChange = useCallback((n) => { data.name = getName(n); setName(n); onCardChange(); }, [onCardChange]);
 	const onNumberChange = useCallback((e) => { data.number = e; onCardChange(); }, [onCardChange]);

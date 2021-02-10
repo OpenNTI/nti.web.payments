@@ -8,7 +8,7 @@ const KNOWN_OPTIONS = [
 	'address_country'
 ];
 
-export async function generateToken (stripe, data) {
+export async function generateToken (stripe, elements, data) {
 	const options = KNOWN_OPTIONS.reduce((acc, option) => {
 		if (data[option] != null) {
 			acc[option] = data[option];
@@ -17,7 +17,7 @@ export async function generateToken (stripe, data) {
 		return acc;
 	}, {});
 
-	const {token, error} = await stripe.createToken(options);
+	const {token, error} = await stripe.createToken(elements.getElement('cardNumber'), options);
 
 	if (error) {
 		throw error;
