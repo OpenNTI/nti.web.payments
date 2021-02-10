@@ -144,6 +144,7 @@ export default function CreditCardForm ({className, onChange}) {
 		<div className={cx('nti-credit-card-form', className)}>
 			{stripe && (
 				<NameOnCreditCard
+					className="name-input"
 					name="ccname"
 					autoComplete="cc-name"
 					value={name}
@@ -152,10 +153,10 @@ export default function CreditCardForm ({className, onChange}) {
 					required
 				/>
 			)}
-			<Flex>
-				<Number onChange={onNumberChange} {...STRIPE_ELEMENT_PROPS} />
-				<Expiry onChange={onExpiryChange} {...STRIPE_ELEMENT_PROPS} />
-				<Cvc onChange={onCVCChange} {...STRIPE_ELEMENT_PROPS} />
+			<Flex className="card-input">
+				<Number className="card-number" onChange={onNumberChange} {...STRIPE_ELEMENT_PROPS} />
+				<Expiry className="card-expiry" onChange={onExpiryChange} {...STRIPE_ELEMENT_PROPS} />
+				<Cvc className="card-cvc" onChange={onCVCChange} {...STRIPE_ELEMENT_PROPS} />
 			</Flex>
 		</div>
 	);
