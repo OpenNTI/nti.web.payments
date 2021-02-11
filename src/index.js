@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js/pure';
+import {loadStripe} from '@stripe/stripe-js';
 
 import CreditCardCmp from './CreditCard';
 import {getPublicKeyFromPurchasable} from './utils';
