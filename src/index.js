@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js/pure';
@@ -18,14 +18,16 @@ CreditCard.propTypes = {
 };
 export function CreditCard ({purchasable, onError, ...otherProps}) {
 	const [stripe, setStripe] = useState(null);
-	useEffect(() => {
-		setStripe(!purchasable ? null :
-			loadStripe(getPublicKeyFromPurchasable(purchasable))
-				.catch(e => {
-					onError?.(e);
-					throw e;
-				})
-		);
+	useLayoutEffect(() => {
+		if (!purchasable)  {return;}
+
+		loadStripe(getPublicKeyFromPurchasable(purchasable))
+			.then(setStripe)
+			.catch(e => {
+				onError?.(e);
+				throw e;
+			});
+
 	}, [purchasable]);
 
 	return !stripe ? null : (
