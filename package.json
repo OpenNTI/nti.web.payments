@@ -1,6 +1,6 @@
 {
   "name": "@nti/web-payments",
-  "version": "1.7.0-alpha",
+  "version": "1.7.0",
   "description": "NextThought components for payments",
   "main": "lib/index.js",
   "module": "src/index.js",
