@@ -1,25 +1,25 @@
 import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import CreditCardCmp from './CreditCard';
-import {getPublicKeyFromPurchasable} from './utils';
+import { getPublicKeyFromPurchasable } from './utils';
 
 const ELEMENT_PROPS = {
-	fonts: [
-		{cssSrc:'https://fonts.googleapis.com/css?family=Open+Sans'}
-	]
+	fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Open+Sans' }],
 };
 
 CreditCard.propTypes = {
 	purchasable: PropTypes.any,
 	onError: PropTypes.func,
 };
-export function CreditCard ({purchasable, onError, ...otherProps}) {
+export function CreditCard({ purchasable, onError, ...otherProps }) {
 	const [stripe, setStripe] = useState(null);
 	useLayoutEffect(() => {
-		if (!purchasable)  {return;}
+		if (!purchasable) {
+			return;
+		}
 
 		loadStripe(getPublicKeyFromPurchasable(purchasable))
 			.then(setStripe)
@@ -27,11 +27,10 @@ export function CreditCard ({purchasable, onError, ...otherProps}) {
 				onError?.(e);
 				throw e;
 			});
-
 	}, [purchasable]);
 
 	return !stripe ? null : (
-		<Elements {...ELEMENT_PROPS} stripe={stripe} >
+		<Elements {...ELEMENT_PROPS} stripe={stripe}>
 			<CreditCardCmp {...otherProps} />
 		</Elements>
 	);

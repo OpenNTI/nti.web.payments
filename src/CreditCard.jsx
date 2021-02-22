@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef} from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {
@@ -6,25 +6,27 @@ import {
 	useElements,
 	CardNumberElement,
 	CardExpiryElement,
-	CardCvcElement
+	CardCvcElement,
 } from '@stripe/react-stripe-js';
-import {Input} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Input } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
-import {generateToken} from './utils';
+import { generateToken } from './utils';
 
 const t = scoped('payment.credit-card', {
 	name: {
 		placeholder: 'Name on Card',
-		error: 'A name must be provided.'
-	}
+		error: 'A name must be provided.',
+	},
 });
-
 
 //#region styles
 
-const Framer = type => ({type: Type = type, className, ...props}) => ({className, children: <Type {...props}/>});
-const FrameType = type => props => ({type, ...props});
+const Framer = type => ({ type: Type = type, className, ...props }) => ({
+	className,
+	children: <Type {...props} />,
+});
+const FrameType = type => props => ({ type, ...props });
 
 const Flex = styled.div`
 	display: flex;
@@ -87,34 +89,36 @@ const STRIPE_ELEMENT_PROPS = {
 					color: '#b8b8b8',
 					fontStyle: 'italic',
 					fontSize: 14,
-					fontWeight: 400
-				}
-			}
-		}
-	}
+					fontWeight: 400,
+				},
+			},
+		},
+	},
 };
-
 
 CreditCardForm.propTypes = {
 	className: PropTypes.string,
-	onChange: PropTypes.func
+	onChange: PropTypes.func,
 };
 
-export default function CreditCardForm ({className, onChange}) {
+export default function CreditCardForm({ className, onChange }) {
 	// Get a reference to Stripe or Elements using hooks.
 	const stripe = useStripe();
 	const elements = useElements();
 	const [name, setName] = useState('');
-	const {current: data} = useRef({
-		name: {empty: true},
-		number: {empty: true},
-		expiry: {empty: true},
-		cvc: {empty: true},
+	const { current: data } = useRef({
+		name: { empty: true },
+		number: { empty: true },
+		expiry: { empty: true },
+		cvc: { empty: true },
 	});
 
-
 	const onCardChange = useCallback(() => {
-		const complete = data.name.complete && data.number.complete && data.expiry.complete && data.cvc.complete;
+		const complete =
+			data.name.complete &&
+			data.number.complete &&
+			data.expiry.complete &&
+			data.cvc.complete;
 		const errors = getErrors(data.name, data.number, data.expiry, data.cvc);
 		const values = getValues(data.name, data.number, data.expiry, data.cvc);
 
@@ -125,20 +129,58 @@ export default function CreditCardForm ({className, onChange}) {
 			empty: getEmpty(data.name, data.number, data.expiry, data.cvc),
 			values,
 			brand: data.number.brand,
-			createToken: async (extraValues) => {
-				if (!complete) { throw new Error('Missing Credit Card Information'); }
-				if (errors) { throw new Error((errors.name || errors.number || errors.expiry || errors.cvc).message); }
+			createToken: async extraValues => {
+				if (!complete) {
+					throw new Error('Missing Credit Card Information');
+				}
+				if (errors) {
+					throw new Error(
+						(
+							errors.name ||
+							errors.number ||
+							errors.expiry ||
+							errors.cvc
+						).message
+					);
+				}
 
-				return generateToken(stripe, elements, {...extraValues, name: values.name});
-			}
+				return generateToken(stripe, elements, {
+					...extraValues,
+					name: values.name,
+				});
+			},
 		});
-
 	}, [onChange, elements, stripe]);
 
-	const onNameChange = useCallback((n) => { data.name = getName(n); setName(n); onCardChange(); }, [onCardChange]);
-	const onNumberChange = useCallback((e) => { data.number = e; onCardChange(); }, [onCardChange]);
-	const onExpiryChange = useCallback((e) => { data.expiry = e; onCardChange(); }, [onCardChange]);
-	const onCVCChange = useCallback((e) => { data.cvc = e; onCardChange(); }, [onCardChange]);
+	const onNameChange = useCallback(
+		n => {
+			data.name = getName(n);
+			setName(n);
+			onCardChange();
+		},
+		[onCardChange]
+	);
+	const onNumberChange = useCallback(
+		e => {
+			data.number = e;
+			onCardChange();
+		},
+		[onCardChange]
+	);
+	const onExpiryChange = useCallback(
+		e => {
+			data.expiry = e;
+			onCardChange();
+		},
+		[onCardChange]
+	);
+	const onCVCChange = useCallback(
+		e => {
+			data.cvc = e;
+			onCardChange();
+		},
+		[onCardChange]
+	);
 
 	return (
 		<div className={cx('nti-credit-card-form', className)}>
@@ -154,55 +196,66 @@ export default function CreditCardForm ({className, onChange}) {
 				/>
 			)}
 			<Flex className="card-input">
-				<Number className="card-number" onChange={onNumberChange} {...STRIPE_ELEMENT_PROPS} />
-				<Expiry className="card-expiry" onChange={onExpiryChange} {...STRIPE_ELEMENT_PROPS} />
-				<Cvc className="card-cvc" onChange={onCVCChange} {...STRIPE_ELEMENT_PROPS} />
+				<Number
+					className="card-number"
+					onChange={onNumberChange}
+					{...STRIPE_ELEMENT_PROPS}
+				/>
+				<Expiry
+					className="card-expiry"
+					onChange={onExpiryChange}
+					{...STRIPE_ELEMENT_PROPS}
+				/>
+				<Cvc
+					className="card-cvc"
+					onChange={onCVCChange}
+					{...STRIPE_ELEMENT_PROPS}
+				/>
 			</Flex>
 		</div>
 	);
 }
 
-
-
-function getName (n) {
+function getName(n) {
 	return {
 		complete: !!n,
 		empty: !n,
-		error: n ? null : {message: t('name.error')},
-		value: n
+		error: n ? null : { message: t('name.error') },
+		value: n,
 	};
 }
 
-
-function getErrors (name, number, expiry, cvc) {
-	if (!name.error && !number.error && !expiry.error && !cvc.error) { return null; }
+function getErrors(name, number, expiry, cvc) {
+	if (!name.error && !number.error && !expiry.error && !cvc.error) {
+		return null;
+	}
 
 	return {
 		name: name.error,
 		number: number.error,
 		expiry: expiry.error,
-		cvc: cvc.error
+		cvc: cvc.error,
 	};
 }
 
-
-function getValues (name, number, expiry, cvc) {
+function getValues(name, number, expiry, cvc) {
 	return {
 		name: name.value,
 		number: number.value,
 		expiry: expiry.value,
-		cvc: cvc.value
+		cvc: cvc.value,
 	};
 }
 
-
-function getEmpty (name, number, expiry, cvc) {
-	if (!name.empty && !number.empty && !expiry.empty && !cvc.empty) { return null; }
+function getEmpty(name, number, expiry, cvc) {
+	if (!name.empty && !number.empty && !expiry.empty && !cvc.empty) {
+		return null;
+	}
 
 	return {
 		name: name.empty,
 		number: number.empty,
 		expiry: expiry.empty,
-		cvc: cvc.empty
+		cvc: cvc.empty,
 	};
 }
