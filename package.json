@@ -2,12 +2,8 @@
   "name": "@nti/web-payments",
   "version": "1.10.0-alpha",
   "description": "NextThought components for payments",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "module": "src/index.js",
-  "files": [
-    "lib",
-    "src"
-  ],
   "scripts": {
     "clean": "cmp-scripts clean",
     "check": "cmp-scripts check",
