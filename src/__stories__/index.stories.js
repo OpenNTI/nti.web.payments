@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import { useReducer, useRef } from 'react';
 
 import { CreditCard } from '../index';
 
