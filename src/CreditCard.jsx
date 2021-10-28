@@ -23,10 +23,12 @@ const t = scoped('payment.credit-card', {
 
 //#region styles
 
-const Framer = type => ({ type: Type = type, className, ...props }) => ({
-	className,
-	children: <Type {...props} />,
-});
+const Framer =
+	type =>
+	({ type: Type = type, className, ...props }) => ({
+		className,
+		children: <Type {...props} />,
+	});
 const FrameType = type => props => ({ type, ...props });
 
 const Flex = styled.div`
