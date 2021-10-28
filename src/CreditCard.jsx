@@ -84,9 +84,9 @@ const STRIPE_ELEMENT_PROPS = {
 			base: {
 				color: '#757474',
 				fontWeight: 400,
-				fontSize: 14,
+				fontSize: '14px',
 				fontFamily: '"OpenSans", sans-serif',
-				lineHeight: 2.2,
+				lineHeight: 2.2858,
 				// font: 'normal 400 0.875rem/2.2 "OpenSans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif'
 				'::placeholder': {
 					color: '#b8b8b8',
