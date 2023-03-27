@@ -34,7 +34,7 @@
     "@nti/util-logger": "NextThought/nti.util.logger",
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
-    "@stripe/react-stripe-js": "^1.2.2",
+    "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.12.1"
   },
   "devDependencies": {
