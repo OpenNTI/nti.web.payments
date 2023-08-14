@@ -35,7 +35,7 @@
     "@nti/web-client": "NextThought/nti.web.client",
     "@nti/web-commons": "NextThought/nti.web.commons",
     "@stripe/react-stripe-js": "^1.2.2",
-    "@stripe/stripe-js": "^1.12.1"
+    "@stripe/stripe-js": "^2.0.0"
   },
   "devDependencies": {
     "@nti/cmp-scripts": "^2.31.8"
